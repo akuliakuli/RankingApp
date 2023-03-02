@@ -1,13 +1,10 @@
-﻿
-
-const RankingGrid = ({ items, imgArr, drag, allowDrop, drop }) => {
+﻿const RankingGrid = ({ items, imgArr, drag, allowDrop, drop }) => {
 
     const rankingGrid = [];
     const cellCollectionTop = [];
     const cellCollectionMiddle = [];
     const cellCollectionBottom = [];
     const cellCollectionWorst = [];
-
 
     function pushCellMarkupToArr(cellCollection, rankNum, rowLabel) {
         if (rankNum > 0) {
@@ -83,7 +80,6 @@ const RankingGrid = ({ items, imgArr, drag, allowDrop, drop }) => {
         </div>
 
     )
-  
-}
 
-export default RankingGrid
+}
+export default RankingGrid;

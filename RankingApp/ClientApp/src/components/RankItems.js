@@ -1,10 +1,15 @@
-﻿import {useEffect } from 'react'
-import MovieImageArr from "./MovieImages.js";
+﻿
+import { useEffect, useState } from 'react';
 import RankingGrid from "./RankingGrid";
 import ItemCollection from "./ItemCollection";
 
+const RankItems = ({ items, setItems, dataType, imgArr, localStorageKey }) => {
 
-const RankItems = ({items,setItems,dataType,imgArr,localStorageKey }) => {
+    const [reload, setReload] = useState(false);
+
+    function Reload() {
+        setReload(true);
+    }
 
     function drag(ev) {
         ev.dataTransfer.setData("text", ev.target.id);
@@ -14,8 +19,8 @@ const RankItems = ({items,setItems,dataType,imgArr,localStorageKey }) => {
         ev.preventDefault();
     }
 
-
     function drop(ev) {
+
         ev.preventDefault();
         const targetElm = ev.target;
         if (targetElm.nodeName === "IMG") {
@@ -27,30 +32,48 @@ const RankItems = ({items,setItems,dataType,imgArr,localStorageKey }) => {
                 { ...item, ranking: parseInt(targetElm.id.substring(5)) } : { ...item, ranking: item.ranking });
             setItems(transformedCollection);
         }
-    }
 
+    }
     useEffect(() => {
+        if (items == null) {
+            getDataFromApi();
+        }
+
+    }, [dataType]);
+
+    function getDataFromApi() {
         fetch(`item/${dataType}`)
             .then((results) => {
                 return results.json();
             })
             .then(data => {
+
                 setItems(data);
             })
-    }, [dataType])
+    }
 
     useEffect(() => {
-        localStorage.setItem(localStorageKey, JSON.stringify(items));
+        if (items != null) {
+            localStorage.setItem(localStorageKey, JSON.stringify(items));
+        }
+        setReload(false);
+    }, [items])
 
-    },[items])
+    useEffect(() => {
+        if (reload === true) {
+            getDataFromApi();
+        }
+    }, [reload])
+
 
     return (
         (items != null) ?
             <main>
                 <RankingGrid items={items} imgArr={imgArr} drag={drag} allowDrop={allowDrop} drop={drop} />
                 <ItemCollection items={items} drag={drag} imgArr={imgArr} />
+                <button onClick={Reload} className="reload" style={{ "marginTop": "10px" }}> <span className="text" >Reload</span > </button>
             </main>
             : <main>Loading...</main>
     )
 }
-export default RankItems; 
+export default RankItems;
