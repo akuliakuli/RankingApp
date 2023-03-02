@@ -19,12 +19,14 @@ body {
 main {
     display: flex;
     align-items: center;
-    flex-direction: column;
+    gap:5%;
+
 }
 
 .items-not-ranked {
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap:wrap;
+    justify-content: center;
     margin-bottom: 15px;
 }
 
@@ -40,7 +42,7 @@ main {
     }
 
 .rankings {
-    width: 800px;
+    width: 65%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -56,20 +58,29 @@ main {
     margin-bottom: 4px;
 }
 
-.top-tier {
+.s-tier {
+    background-color: firebrick;
+}
+
+.a-tier {
+    background-color: orange;
+}
+
+.b-tier {
     background-color: yellow;
 }
 
-.middle-tier {
-    background-color: greenyellow;
+.c-tier {
+    background-color: lawngreen;
 }
-
-.bottom-tier {
-    background-color: brown;
+.d-tier{
+    background-color:aqua;
 }
-
-.worst-tier {
-    background-color: red;
+.e-tier{
+    background-color:mediumpurple;
+}
+.f-tier{
+    background-color:hotpink;
 }
 
 .rank-cell, .row-label {
