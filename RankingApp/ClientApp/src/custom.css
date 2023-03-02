@@ -49,7 +49,10 @@ main {
     justify-self: center;
     margin-bottom: 15px;
 }
-
+.ranking{
+    display:flex;
+    flex-direction:column;
+}
 .rank-row {
     height: 100px;
     display: flex;
